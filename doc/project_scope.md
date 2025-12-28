@@ -6,10 +6,11 @@ system to manage API requests and prevent system overload.
 
 ## In-Scope
 - User-based request rate limiting
-- Endpoint-level traffic control
-- Token bucket / Leaky bucket algorithms
+- API Endpoints to check and update rate limits
+- Token bucket algorithm implementation
 - Centralized rate limit configuration
-- Request logging
+- Logging of allowed and blocked requests
+- Basic in-memory and redis based storage
 
 ## Out-of-Scope
 - Authentication and authorization systems
@@ -28,7 +29,5 @@ system to manage API requests and prevent system overload.
 
 ## Deliverables
 - Source code
-- Documentation
-- Architecture diagrams
 - Documentation
 - Architecture diagrams
