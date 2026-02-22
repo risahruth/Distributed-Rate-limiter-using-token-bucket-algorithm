@@ -11,9 +11,9 @@ system to manage API requests and prevent system overload.
 - Centralized rate limit configuration
 - Logging of allowed and blocked requests
 - Basic in-memory and redis based storage
+- User Authentication.
 
 ## Out-of-Scope
-- Authentication and authorization systems
 - UI-based monitoring dashboards
 - ML-driven traffic prediction
 - Multi-region global deployment
