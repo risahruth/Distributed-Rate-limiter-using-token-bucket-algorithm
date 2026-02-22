@@ -11,7 +11,7 @@ system to manage API requests and prevent system overload.
 - Centralized rate limit configuration
 - Logging of allowed and blocked requests
 - Basic in-memory and redis based storage
-- User Authentication.
+- User Authentication using JWT token validation.
 
 ## Out-of-Scope
 - UI-based monitoring dashboards
