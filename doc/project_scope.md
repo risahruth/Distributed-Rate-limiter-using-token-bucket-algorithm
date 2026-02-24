@@ -12,11 +12,11 @@ system to manage API requests and prevent system overload.
 - Logging of allowed and blocked requests
 - Basic in-memory and redis based storage
 - User Authentication(JWT via Spring Security).
+- UI-based monitoring dashboards
+- Multi-region global deployment
 
 ## Out-of-Scope
-- UI-based monitoring dashboards
 - ML-driven traffic prediction
-- Multi-region global deployment
 
 ## Target Users
 - Backend developers
