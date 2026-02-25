@@ -13,7 +13,7 @@ system to manage API requests and prevent system overload.
 - Basic in-memory and redis based storage
 - User Authentication(JWT via Spring Security).
 - UI-based monitoring dashboards
-- Deployment on azure.
+- Global deployment.
 
 ## Out-of-Scope
 - ML-driven traffic prediction
