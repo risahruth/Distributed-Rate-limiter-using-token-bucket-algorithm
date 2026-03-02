@@ -1,0 +1,4 @@
+ratelimiter:
+  strategy: in-memory
+  capacity: 10
+  refill-rate: 5

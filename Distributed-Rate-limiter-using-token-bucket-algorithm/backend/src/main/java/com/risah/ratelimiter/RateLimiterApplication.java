@@ -1,6 +1,10 @@
 package com.risah.ratelimiter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import com.risah.ratelimiter.config.RateLimiterProperties;
+
+@ConfigurationPropertiesScan
 @SpringBootApplication
 public class RateLimiterApplication{
     public static void main(String[] args){

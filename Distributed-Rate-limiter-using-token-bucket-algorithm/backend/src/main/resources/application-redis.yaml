@@ -1,0 +1,9 @@
+ratelimiter:
+  strategy: redis
+  capacity: 10
+  refill-rate: 5
+
+  spring:
+    redis:
+      host: localhost
+      port: 6379

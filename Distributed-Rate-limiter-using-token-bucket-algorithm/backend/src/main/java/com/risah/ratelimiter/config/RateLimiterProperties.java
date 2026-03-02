@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 @ConfigurationProperties(prefix="ratelimiter")
-public class RateLimiterConfig{
-    private int capacity;
-    private int refillrate;
+public class RateLimiterProperties{
+    private long capacity;
+    private long refillRate;
     private String strategy;
 }
