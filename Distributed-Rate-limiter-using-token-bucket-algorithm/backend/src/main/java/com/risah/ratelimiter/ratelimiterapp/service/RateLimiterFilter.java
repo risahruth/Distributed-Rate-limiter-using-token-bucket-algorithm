@@ -2,6 +2,8 @@ package com.risah.ratelimiter.ratelimiterapp.service;
 import com.risah.ratelimiter.ratelimiterapp.service.RateLimiterService;
 import com.risah.ratelimiter.ratelimiterapp.service.RateLimiterLoggingService;
 import com.risah.ratelimiter.ratelimiterapp.model.RateLimiterResult;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,16 +30,28 @@ public class RateLimiterFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
+
         System.out.println("RateLimiterFilter triggered");
+        String path = request.getRequestURI();
 
-        String userId = request.getHeader("X-USER-ID");
-        String endpoint = request.getRequestURI();
-
-        if (userId == null) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.getWriter().write("Missing X-USER-ID header");
+        if (path.startsWith("/auth")) {
+            filterChain.doFilter(request, response);
             return;
         }
+
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.getWriter().write("Unauthorized");
+            return;
+        }
+
+        String userId = authentication.getName();
+        String endpoint = request.getRequestURI();
+
         RateLimiterResult result = service.allowRequest(userId);
 
         loggingService.logRequest(

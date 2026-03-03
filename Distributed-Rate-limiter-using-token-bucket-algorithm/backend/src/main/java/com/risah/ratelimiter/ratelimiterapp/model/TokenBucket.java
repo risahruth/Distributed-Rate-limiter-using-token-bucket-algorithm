@@ -25,7 +25,7 @@ public class TokenBucket {
         }
         return false;
     }
-    public int getToken(){
+    public long getToken(){
         return tokens;
     }
 

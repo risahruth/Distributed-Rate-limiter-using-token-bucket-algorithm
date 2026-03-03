@@ -15,7 +15,7 @@ ratelimiter:
   strategy: in-memory
 
 jwt:
-  secret: very-secure-secret-key-change-this
+  secret: very-secure-secret-which-should-be-256-bits-long
   expiration: 3600000
 
 logging:

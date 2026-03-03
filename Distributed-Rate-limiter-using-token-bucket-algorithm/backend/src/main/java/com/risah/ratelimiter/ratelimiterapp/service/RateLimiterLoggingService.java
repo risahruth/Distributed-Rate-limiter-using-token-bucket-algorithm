@@ -20,20 +20,28 @@ public class RateLimiterLoggingService {
         this.redisTemplate = redisTemplate;
     }
 
-    public void logRequest(String userId, String endpoint, boolean allowed, TokenBucket bucket) {
+    public void logRequest(String userId,
+                           String endpoint,
+                           boolean allowed,
+                           long tokensRemaining,
+                           long capacity,
+                           long refillRate) {
+        System.out.println("LOGGING FOR USER: " + userId);
+
         String key = "rate_limit:logs:" + userId;
 
         Map<String, Object> logEntry = new HashMap<>();
         logEntry.put("status", allowed ? "ALLOWED" : "BLOCKED");
         logEntry.put("endpoint", endpoint);
-        logEntry.put("tokensRemaining", bucket.getToken());
-        logEntry.put("capacity", bucket.getCapacity());
-        logEntry.put("refillRate", bucket.getRefillRate());
+        logEntry.put("tokensRemaining", tokensRemaining);
+        logEntry.put("capacity", capacity);
+        logEntry.put("refillRate", refillRate);
         logEntry.put("timestamp", Instant.now().toEpochMilli());
 
         try {
             String json = mapper.writeValueAsString(logEntry);
             long timestamp = Instant.now().toEpochMilli();
+
             redisTemplate.opsForZSet().add(key, json, timestamp);
             redisTemplate.opsForZSet().removeRangeByScore(key, 0, timestamp - LOG_TTL_MILLIS);
         } catch (Exception e) {

@@ -22,7 +22,7 @@ public class RedisRateLimiterService implements RateLimiterService{
                                    @Qualifier("preloadRateLimiterScript")String preloadRateLimiterScript) {
         this.redisTemplate = redisTemplate;
         this.properties = properties;
-        this.scriptSha = preloadRateLimiterScript; // Injected SHA bean
+        this.scriptSha = preloadRateLimiterScript;
     }
 
     public RateLimiterResult allowRequest(String userId) {
@@ -30,7 +30,8 @@ public class RedisRateLimiterService implements RateLimiterService{
         String tokensKey = "rate_limit:" + userId + ":tokens";
         String timestampKey = "rate_limit:" + userId + ":timestamp";
 
-        Long result = redisTemplate.getConnectionFactory()
+        List<Long> result = (List<Long>) redisTemplate
+                .getConnectionFactory()
                 .getConnection()
                 .evalSha(
                         scriptSha,
